@@ -1,0 +1,19 @@
+#body{
+    
+}
+#body #tit{
+      margin-left: 500px;
+}
+.logins{
+    border: 2px solid brown;
+    
+    margin-left: 500px;
+    margin-top: 180px;
+}
+.logins #titulos{
+
+}
+.logins #boton{
+    padding-left: 90px;
+    text-align: center;
+}
