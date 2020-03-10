@@ -1,0 +1,48 @@
+#indexx{
+    background-image: url('credito-personal.jpg');
+    background-repeat: no-repeat;
+    background-attachment:inherit;
+}
+#logg{
+    background-image: url('fondolog.jpg');
+    background-repeat: no-repeat;
+    background-attachment:inherit;
+}
+#wrapper h1{
+    border: 2px solid brown;
+}
+#titulo h1{
+    margin-left: 670px;
+}
+#body #tit{
+      margin-left: 500px;
+}
+.logins{
+    border: 2px solid brown;
+    
+    margin-left: 500px;
+    margin-top: 180px;
+}
+.logins #titulos{
+
+}
+.logins #boton{
+    padding-left: 170px;
+    text-align: center;
+}
+#wrapperInicio{
+    background-color:white;
+    margin-left: 500px;
+    margin-right:500px;
+    margin-top: 230px;
+    
+}
+#wrapperInicio h1{
+    
+    border: 2px solid brown;
+    padding-left: 40px;
+    
+}
+#wrapperInicio p{
+    padding-left: 30px;
+}
