@@ -4,7 +4,7 @@ package servicios;
  *
  * @author Kevin
  */
-/*
+
 import java.io.IOException;
 import java.util.Enumeration;
 import javax.servlet.ServletException;
@@ -62,4 +62,3 @@ public class InfoLogin extends HttpServlet {
         return "Servicio de ejemplo (información del formulario)";
     }
 }
-*/

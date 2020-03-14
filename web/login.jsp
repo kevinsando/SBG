@@ -16,7 +16,7 @@
     <body id ="logg">
         <div id="titulo">
             <h1>Banco</h1>
-            <form id="login" action="ServicioMoneda" method="GET">
+            <form id="login" action="ServicioLogin" method="GET">
         </div>
         <table class="logins">
             <form method="GET" action="#">

@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 /**
  *
  * @author Kevin
- */
+ *//*
 @WebServlet
 public class ServletMoneda extends HttpServlet {
 
@@ -72,3 +72,4 @@ public class ServletMoneda extends HttpServlet {
    // private final ServicioBanco servicio = new ServicioBanco();
 
 }
+*/
