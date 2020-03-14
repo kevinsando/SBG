@@ -5,42 +5,37 @@ package servicios;
  * @author Kevin
  */
 
+import banco.modelo.dao.ServicioBanco;
 import java.io.IOException;
 import java.util.Enumeration;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet
+@WebServlet(
+        name = "InfoLogin",
+        urlPatterns = {"/InfoLogin", "/registro-login"}
+)
 public class InfoLogin extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        System.out.println();
-        Enumeration<String> e = request.getParameterNames();
-        int n = 0;
-        while (e.hasMoreElements()) {
-            n++;
-            String p = e.nextElement();
-            System.out.print(String.format("\"%s\": [", p));
-
-            String[] v = request.getParameterValues(p);
-            for (int i = 0; i < v.length; i++) {
-                if (i > 0) {
-                    System.out.print(", ");
-                }
-                System.out.print(String.format("\"%s\"", v[i]));
-            }
-
-            System.out.println("]");
+        String id = request.getParameter("id");
+        if (id!= null) {
+            // request.setAttribute("registroEstudiante", null);
+            servicio.obtenerCuenta(this.checkId(id))
+                    .ifPresent(e -> request.setAttribute("registroLogin", e));
         }
-        System.out.println();
-
-        response.sendRedirect("login.jsp");
+        // response.sendRedirect("...");
+        RequestDispatcher dispatcher = request.getRequestDispatcher(
+                "/WEB-INF/registros/vista/registro-login.jsp");
+        dispatcher.forward(request, response);
     }
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -61,4 +56,16 @@ public class InfoLogin extends HttpServlet {
     public String getServletInfo() {
         return "Servicio de ejemplo (información del formulario)";
     }
+    private String checkId(String txt) {
+        String r = txt;
+
+        Pattern pat = Pattern.compile("([1-9,A])-?([0-9]{4})-?([0-9]{4})");
+        Matcher m = pat.matcher(txt);
+        if (m.find()) {
+            r = String.format("%s%s%s", m.group(1), m.group(2), m.group(3));
+        }
+
+        return r;
+    }
+     private final ServicioBanco servicio = new ServicioBanco();
 }

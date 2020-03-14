@@ -1,52 +1,42 @@
 package servicios;
 
+/**
+ *
+ * @author Kevin
+ */
 import java.io.IOException;
-import java.util.Enumeration;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import banco.modelo.dao.ServicioBanco;
+import javax.servlet.RequestDispatcher;
 
-//import banco.modelo.dao.ServicioBanco;
-
-/**
- *
- * @author Kevin
- *//*
-@WebServlet
+@WebServlet(
+        name = "ServletMoneda",
+        urlPatterns = {"/ServletMoneda", "/registro-moneda"}
+)
 public class ServletMoneda extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        System.out.println();
-        Enumeration<String> e = request.getParameterNames();
-        int n = 0;
-        while (e.hasMoreElements()) {
-            n++;
-            String p = e.nextElement();
-            System.out.print(String.format("\"%s\": [", p));
-
-            String[] v = request.getParameterValues(p);
-            for (int i = 0; i < v.length; i++) {
-                if (i > 0) {
-                    System.out.print(", ");
-                }
-                System.out.print(String.format("\"%s\"", v[i]));
-            }
-
-            System.out.println("]");
+        String nombre = request.getParameter("nombre");
+        if (nombre != null) {
+            // request.setAttribute("registroEstudiante", null);
+            servicio.obtenerMoneda(nombre)
+                    .ifPresent(e -> request.setAttribute("registroMoneda", e));
         }
-        System.out.println();
-
-        response.sendRedirect("login.jsp");
+        // response.sendRedirect("...");
+        RequestDispatcher dispatcher = request.getRequestDispatcher(
+                "/WEB-INF/registros/vista/registro-moneda.jsp");
+        dispatcher.forward(request, response);
     }
 
-   @Override
+    
+
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         System.out.println();
@@ -66,10 +56,5 @@ public class ServletMoneda extends HttpServlet {
     public String getServletInfo() {
         return "Servicio de ejemplo (información del formulario)";
     }
-
-    
-
-   // private final ServicioBanco servicio = new ServicioBanco();
-
+     private final ServicioBanco servicio = new ServicioBanco();
 }
-*/

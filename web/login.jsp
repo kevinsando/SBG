@@ -43,7 +43,7 @@
                     </tr>
                 <td>
                     <p id="boton">
-                        <button type="submit"><a href="cliente.jsp">Enviar</a></button>
+                        <button type="submit">Enviar</button>
                         
                     </p>
                 </td>

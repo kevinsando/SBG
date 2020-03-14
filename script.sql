@@ -10,20 +10,20 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- -----------------------------------------------------
 -- Schema eif209_2001_p01
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `eif209_2001_p01` ;
+DROP SCHEMA IF EXISTS `tabla` ;
 
 -- -----------------------------------------------------
 -- Schema eif209_2001_p01
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `eif209_2001_p01` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci ;
-USE `eif209_2001_p01` ;
+CREATE SCHEMA IF NOT EXISTS `tabla` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci ;
+USE `tabla` ;
 
 -- -----------------------------------------------------
 -- Table `eif209_2001_p01`.`usuario`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `eif209_2001_p01`.`usuario` ;
+DROP TABLE IF EXISTS `tabla`.`usuario` ;
 
-CREATE TABLE IF NOT EXISTS `eif209_2001_p01`.`usuario` (
+CREATE TABLE IF NOT EXISTS `tabla`.`usuario` (
   `id_usuario` VARCHAR(16) NOT NULL,
   `clave_acceso` VARCHAR(45) NOT NULL,
   `clave_vencida` TINYINT NOT NULL DEFAULT 1,
@@ -35,9 +35,9 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `eif209_2001_p01`.`cliente`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `eif209_2001_p01`.`cliente` ;
+DROP TABLE IF EXISTS `tabla`.`cliente` ;
 
-CREATE TABLE IF NOT EXISTS `eif209_2001_p01`.`cliente` (
+CREATE TABLE IF NOT EXISTS `tabla`.`cliente` (
   `id_cliente` VARCHAR(16) NOT NULL,
   `usuario_id_usuario` VARCHAR(16) NOT NULL,
   `apellidos` VARCHAR(45) NOT NULL,
@@ -54,11 +54,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `eif209_2001_p01`.`moneda`
+-- Table `tabla`.`moneda`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `eif209_2001_p01`.`moneda` ;
+DROP TABLE IF EXISTS `tabla`.`moneda` ;
 
-CREATE TABLE IF NOT EXISTS `eif209_2001_p01`.`moneda` (
+CREATE TABLE IF NOT EXISTS `tabla`.`moneda` (
   `nombre` VARCHAR(3) NOT NULL,
   `descripcion` VARCHAR(20) NOT NULL,
   `simbolo` VARCHAR(4) NOT NULL,
@@ -71,9 +71,9 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `eif209_2001_p01`.`tipo_cuenta`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `eif209_2001_p01`.`tipo_cuenta` ;
+DROP TABLE IF EXISTS `tabla`.`tipo_cuenta` ;
 
-CREATE TABLE IF NOT EXISTS `eif209_2001_p01`.`tipo_cuenta` (
+CREATE TABLE IF NOT EXISTS `tabla`.`tipo_cuenta` (
   `id_tipo_cuenta` INT NOT NULL,
   `descripción` VARCHAR(45) NOT NULL,
   `tasa_interés` DOUBLE NOT NULL DEFAULT 0,
@@ -84,9 +84,9 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `eif209_2001_p01`.`cuenta`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `eif209_2001_p01`.`cuenta` ;
+DROP TABLE IF EXISTS `tabla`.`cuenta` ;
 
-CREATE TABLE IF NOT EXISTS `eif209_2001_p01`.`cuenta` (
+CREATE TABLE IF NOT EXISTS `tabla`.`cuenta` (
   `num_cuenta` VARCHAR(45) NOT NULL,
   `tipo_cuenta_id_tipo_cuenta` INT NOT NULL,
   `cliente_id_cliente` VARCHAR(16) NOT NULL,
@@ -103,17 +103,17 @@ CREATE TABLE IF NOT EXISTS `eif209_2001_p01`.`cuenta` (
   INDEX `fk_cuenta_tipo_cuenta1_idx` (`tipo_cuenta_id_tipo_cuenta` ASC),
   CONSTRAINT `fk_cuenta_moneda`
     FOREIGN KEY (`moneda_nombre`)
-    REFERENCES `eif209_2001_p01`.`moneda` (`nombre`)
+    REFERENCES `tabla`.`moneda` (`nombre`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_cuenta_cliente1`
     FOREIGN KEY (`cliente_id_cliente`)
-    REFERENCES `eif209_2001_p01`.`cliente` (`id_cliente`)
+    REFERENCES `tabla`.`cliente` (`id_cliente`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_cuenta_tipo_cuenta1`
     FOREIGN KEY (`tipo_cuenta_id_tipo_cuenta`)
-    REFERENCES `eif209_2001_p01`.`tipo_cuenta` (`id_tipo_cuenta`)
+    REFERENCES `tabla`.`tipo_cuenta` (`id_tipo_cuenta`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -122,9 +122,9 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `eif209_2001_p01`.`movimiento`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `eif209_2001_p01`.`movimiento` ;
+DROP TABLE IF EXISTS `tabla`.`movimiento` ;
 
-CREATE TABLE IF NOT EXISTS `eif209_2001_p01`.`movimiento` (
+CREATE TABLE IF NOT EXISTS `tabla`.`movimiento` (
   `id_movimiento` INT NOT NULL AUTO_INCREMENT,
   `cuenta_num_cuenta` VARCHAR(45) NOT NULL,
   `monto` DOUBLE NOT NULL DEFAULT 0,
@@ -135,7 +135,7 @@ CREATE TABLE IF NOT EXISTS `eif209_2001_p01`.`movimiento` (
   INDEX `fk_movimiento_cuenta1_idx` (`cuenta_num_cuenta` ASC),
   CONSTRAINT `fk_movimiento_cuenta1`
     FOREIGN KEY (`cuenta_num_cuenta`)
-    REFERENCES `eif209_2001_p01`.`cuenta` (`num_cuenta`)
+    REFERENCES `tabla`.`cuenta` (`num_cuenta`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -144,9 +144,9 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `eif209_2001_p01`.`favorita`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `eif209_2001_p01`.`favorita` ;
+DROP TABLE IF EXISTS `tabla`.`favorita` ;
 
-CREATE TABLE IF NOT EXISTS `eif209_2001_p01`.`favorita` (
+CREATE TABLE IF NOT EXISTS `tabla`.`favorita` (
   `cliente_id_cliente` VARCHAR(16) NOT NULL,
   `cuenta_num_cuenta` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`cliente_id_cliente`, `cuenta_num_cuenta`),
@@ -154,12 +154,12 @@ CREATE TABLE IF NOT EXISTS `eif209_2001_p01`.`favorita` (
   INDEX `fk_favorita_cuenta1_idx` (`cuenta_num_cuenta` ASC),
   CONSTRAINT `fk_favorita_cliente1`
     FOREIGN KEY (`cliente_id_cliente`)
-    REFERENCES `eif209_2001_p01`.`cliente` (`id_cliente`)
+    REFERENCES `tabla`.`cliente` (`id_cliente`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_favorita_cuenta1`
     FOREIGN KEY (`cuenta_num_cuenta`)
-    REFERENCES `eif209_2001_p01`.`cuenta` (`num_cuenta`)
+    REFERENCES `tabla`.`cuenta` (`num_cuenta`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -168,9 +168,9 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `eif209_2001_p01`.`transferencia`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `eif209_2001_p01`.`transferencia` ;
+DROP TABLE IF EXISTS `tabla`.`transferencia` ;
 
-CREATE TABLE IF NOT EXISTS `eif209_2001_p01`.`transferencia` (
+CREATE TABLE IF NOT EXISTS `tabla`.`transferencia` (
   `id_transferencia` INT NOT NULL AUTO_INCREMENT,
   `cuenta_origen` VARCHAR(45) NOT NULL,
   `cuenta_destino` VARCHAR(45) NOT NULL,
@@ -182,12 +182,12 @@ CREATE TABLE IF NOT EXISTS `eif209_2001_p01`.`transferencia` (
   INDEX `fk_transferencia_cuenta2_idx` (`cuenta_destino` ASC),
   CONSTRAINT `fk_transferencia_cuenta1`
     FOREIGN KEY (`cuenta_origen`)
-    REFERENCES `eif209_2001_p01`.`cuenta` (`num_cuenta`)
+    REFERENCES `tabla`.`cuenta` (`num_cuenta`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_transferencia_cuenta2`
     FOREIGN KEY (`cuenta_destino`)
-    REFERENCES `eif209_2001_p01`.`cuenta` (`num_cuenta`)
+    REFERENCES `tabla`.`cuenta` (`num_cuenta`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

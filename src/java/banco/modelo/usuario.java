@@ -6,17 +6,19 @@ import java.io.Serializable;
  * @author Kevin
  */
 
-public class cuenta implements Serializable{
+public class usuario implements Serializable{
     
     private final String nombre;
     private final String id;
     private final String password;
+    private final Integer rol;
     private final Integer telefono;
     
-    public cuenta(String nombre, String id, String password, int telefono){
+    public usuario(String nombre, String id, String password,int rol, int telefono){
         this.nombre=nombre;
         this.id = id;
         this.password=password;
+        this.rol = rol;
         this.telefono=telefono;
     }
     @Override
@@ -32,6 +34,9 @@ public class cuenta implements Serializable{
     }
     public String getPassword(){
         return password;
+    }
+    public int getRol(){
+        return rol;
     }
     public int getTel(){
         return telefono;

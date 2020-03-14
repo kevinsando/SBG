@@ -10,24 +10,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Properties;
-import banco.modelo.cuenta;
+import banco.modelo.usuario;
 import banco.modelo.moneda;
 import banco.datos.BaseDatos;
 
 public class ServicioBanco {
 
-    public Optional<cuenta> obtenerCuenta(String id) {
-        Optional<cuenta> r = Optional.empty();
+    public Optional<usuario> obtenerCuenta(String id) {
+        Optional<usuario> r = Optional.empty();
         try (Connection cnx = obtenerConexion();
                 PreparedStatement stm = cnx.prepareStatement(CMD_RECUPERAR_CUENTA);) {
             stm.clearParameters();
             stm.setString(1, id);
             try (ResultSet rs = stm.executeQuery()) {
                 if (rs.next()) {
-                    r = Optional.of(new cuenta(
+                    r = Optional.of(new usuario(
                             rs.getString("nombre"),
-                            rs.getString("id"),
-                            rs.getString("password"),
+                            rs.getString("id_usuario"),
+                            rs.getString("clave_acceso"),
+                            rs.getInt("rol"),
                             rs.getInt("telefono")
                     ));
                 }
@@ -42,17 +43,18 @@ public class ServicioBanco {
         return r;
     }
 
-    public List<cuenta> obtenerListaCuentas() {
-        List<cuenta> r = new ArrayList<>();
+    public List<usuario> obtenerListaCuentas() {
+        List<usuario> r = new ArrayList<>();
         try (Connection cnx = obtenerConexion();
                 Statement stm = cnx.createStatement();
                 ResultSet rs = stm.executeQuery(CMD_LISTAR_CUENTAS)) {
             while (rs.next()) {
-                cuenta c = new cuenta(
+                usuario c = new usuario(
                         rs.getString("nombre"),
-                        rs.getString("id"),
-                        rs.getString("password"),
-                        rs.getInt("telefono")
+                            rs.getString("id_usuario"),
+                            rs.getString("clave_acceso"),
+                            rs.getInt("rol"),
+                            rs.getInt("telefono")
                 );
                 r.add(c);
             }
