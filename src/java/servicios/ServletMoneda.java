@@ -1,20 +1,25 @@
 package servicios;
 
-/**
- *
- * @author Kevin
- */
-/*
 import java.io.IOException;
 import java.util.Enumeration;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+//import banco.modelo.dao.ServicioBanco;
+
+/**
+ *
+ * @author Kevin
+ */
 @WebServlet
-public class InfoLogin extends HttpServlet {
+public class ServletMoneda extends HttpServlet {
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -41,7 +46,7 @@ public class InfoLogin extends HttpServlet {
         response.sendRedirect("login.jsp");
     }
 
-    @Override
+   @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         System.out.println();
@@ -61,5 +66,9 @@ public class InfoLogin extends HttpServlet {
     public String getServletInfo() {
         return "Servicio de ejemplo (información del formulario)";
     }
+
+    
+
+   // private final ServicioBanco servicio = new ServicioBanco();
+
 }
-*/

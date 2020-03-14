@@ -16,7 +16,7 @@
     <body id ="logg">
         <div id="titulo">
             <h1>Banco</h1>
-            <form id="login" action="ServicioLogin" method="GET">
+            <form id="login" action="ServicioMoneda" method="GET">
         </div>
         <table class="logins">
             <form method="GET" action="#">
@@ -43,7 +43,8 @@
                     </tr>
                 <td>
                     <p id="boton">
-                        <button type="submit">Enviar</button>
+                        <button type="submit"><a href="cliente.jsp">Enviar</a></button>
+                        
                     </p>
                 </td>
                 </tbody>
